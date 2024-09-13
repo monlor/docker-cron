@@ -18,7 +18,7 @@ check_syntax() {
 }
 
 # Configure scheduled tasks
-env | grep ^CRON_JOB_ | while read -r var; do
+env | grep ^CRON_JOB_ | sort | while read -r var; do
     job_name="$(echo $var | cut -d= -f1 | cut -d_ -f3- | tr '[:upper:]' '[:lower:]')"
     job_schedule="$(echo $var | cut -d= -f2- | cut -d' ' -f1-5)"    
     job_command="$(echo $var | cut -d= -f2- | cut -d' ' -f6-)"
@@ -31,7 +31,7 @@ env | grep ^CRON_JOB_ | while read -r var; do
 done
 
 # Configure startup tasks
-env | grep ^STARTUP_COMMAND_ | while read -r var; do
+env | grep ^STARTUP_COMMAND_ | sort | while read -r var; do
     task_name="$(echo $var | cut -d= -f1 | cut -d_ -f3- | tr '[:upper:]' '[:lower:]')"
     task_command="$(echo $var | cut -d= -f2-)"
     

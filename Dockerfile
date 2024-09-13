@@ -1,7 +1,7 @@
 FROM alpine:3.18
 
 # Install necessary packages
-RUN apk add --no-cache bash dcron logrotate
+RUN apk add --no-cache bash dcron logrotate curl
 
 # Copy the entrypoint script
 COPY entrypoint.sh /entrypoint.sh

@@ -22,8 +22,10 @@ A lightweight Docker image based on Alpine Linux for running cron jobs and start
 
 ```bash
 docker run -d \
--e CRON_JOB_EXAMPLE="* * * * * echo 'Hello, World!'" \
--e STARTUP_COMMAND_EXAMPLE="echo 'Container started!'" \
+-e CRON_JOB_EXAMPLE1="* * * * * echo 'Hello, World!'" \
+-e CRON_JOB_EXAMPLE2="0 2 * * * echo 'Hourly task'" \
+-e STARTUP_COMMAND_EXAMPLE1="echo 'Container started!'" \
+-e STARTUP_COMMAND_EXAMPLE2="echo 'Initializing services...'" \
 monlor/docker-cron:main
 ```
 
@@ -44,6 +46,7 @@ Example:
 
 ```bash
 CRON_JOB_HELLO="* * * * * echo 'Hello, World!'"
+CRON_JOB_BACKUP="0 2 * * * /usr/local/bin/backup-script.sh"
 ```
 
 ### Startup Commands
@@ -58,6 +61,8 @@ Example:
 
 ```bash
 STARTUP_COMMAND_INIT="echo 'Initializing...'"
+STARTUP_COMMAND_CONFIG="/usr/local/bin/configure-app.sh"
+STARTUP_COMMAND_SERVICE="service myapp start"
 ```
 
 ## Log Management
