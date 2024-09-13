@@ -1,14 +1,14 @@
 FROM alpine:3.18
 
-# 安装必要的软件包
+# Install necessary packages
 RUN apk add --no-cache bash dcron logrotate
 
-# 复制入口脚本
+# Copy the entrypoint script
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-# 设置工作目录
+# Set the working directory
 WORKDIR /app
 
-# 设置入口点
+# Set the entrypoint
 ENTRYPOINT ["/entrypoint.sh"]
