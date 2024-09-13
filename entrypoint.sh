@@ -17,6 +17,16 @@ check_syntax() {
     return 0
 }
 
+# Add startup condition check
+if [ ! -z "${STARTUP_CONDITION:-}" ]; then
+    echo "> Waiting for startup condition to be met..."
+    while ! eval "$STARTUP_CONDITION"; do
+        echo "> Failed to meet startup condition. Retrying..."
+        sleep 1
+    done
+    echo "> Startup condition met. Proceeding with service startup."
+fi
+
 # Configure scheduled tasks
 env | grep ^CRON_JOB_ | sort | while read -r var; do
     job_name="$(echo $var | cut -d= -f1 | cut -d_ -f3- | tr '[:upper:]' '[:lower:]')"

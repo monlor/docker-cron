@@ -26,6 +26,7 @@ docker run -d \
 -e CRON_JOB_EXAMPLE2="0 2 * * * echo 'Hourly task'" \
 -e STARTUP_COMMAND_EXAMPLE1="echo 'Container started!'" \
 -e STARTUP_COMMAND_EXAMPLE2="echo 'Initializing services...'" \
+-e STARTUP_CONDITION="curl -s http://localhost:3000" \
 monlor/docker-cron:main
 ```
 
@@ -33,6 +34,7 @@ monlor/docker-cron:main
 
 - `CRON_JOB_<name>`: Define cron jobs. Format: `"<schedule> <command>"`
 - `STARTUP_COMMAND_<name>`: Define commands to run at container startup
+- `STARTUP_CONDITION`: Define a condition that must be met before starting services
 
 ### Cron Jobs
 
@@ -46,7 +48,7 @@ Example:
 
 ```bash
 CRON_JOB_HELLO="* * * * * echo 'Hello, World!'"
-CRON_JOB_BACKUP="0 2 * * * /usr/local/bin/backup-script.sh"
+CRON_JOB_BACKUP="0 2 * * * curl -sSf https://example.com/api/backup"
 ```
 
 ### Startup Commands
@@ -61,8 +63,21 @@ Example:
 
 ```bash
 STARTUP_COMMAND_INIT="echo 'Initializing...'"
-STARTUP_COMMAND_CONFIG="/usr/local/bin/configure-app.sh"
-STARTUP_COMMAND_SERVICE="service myapp start"
+STARTUP_COMMAND_CONFIG="curl -sSf https://example.com/api/config"
+```
+
+### Startup Condition
+
+You can set a startup condition that must be met before the container starts its services. This is useful for ensuring dependencies are ready. The format is:
+
+```bash
+STARTUP_CONDITION="<command>"
+```
+
+Example:
+
+```bash
+STARTUP_CONDITION="curl -sSf https://example.com/api/health &> /dev/null"
 ```
 
 ## Log Management
