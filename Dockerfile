@@ -1,7 +1,7 @@
 FROM alpine:3.18
 
 # Install necessary packages including tini
-RUN apk add --no-cache bash dcron logrotate curl tini
+RUN apk add --no-cache bash dcron logrotate curl tini tzdata
 
 # Copy the entrypoint script
 COPY entrypoint.sh /entrypoint.sh

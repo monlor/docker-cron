@@ -22,6 +22,7 @@ A lightweight Docker image based on Alpine Linux for running cron jobs and start
 
 ```bash
 docker run -d \
+-e TZ="Asia/Shanghai" \
 -e CRON_JOB_EXAMPLE1="* * * * * echo 'Hello, World!'" \
 -e CRON_JOB_EXAMPLE2="0 2 * * * echo 'Hourly task'" \
 -e STARTUP_COMMAND_EXAMPLE1="echo 'Container started!'" \
@@ -32,6 +33,7 @@ monlor/docker-cron:main
 
 ### Environment Variables
 
+- `TZ`: Set the timezone (e.g., `Asia/Shanghai`, `America/New_York`, `Europe/London`). Default is UTC.
 - `CRON_JOB_<name>`: Define cron jobs. Format: `"<schedule> <command>"`
 - `STARTUP_COMMAND_<name>`: Define commands to run at container startup
 - `STARTUP_CONDITION`: Define a condition that must be met before starting services
